@@ -17,7 +17,7 @@ import static java.util.stream.Collectors.toList;
 @AllArgsConstructor
 public class FileProcessingService {
 
-	private final StorageService storageService;
+	private final TemporaryDirectoryService temporaryDirectoryService;
 	private final MapSortingUtility mapSortingUtility;
 
 	private final SimpleDateFormat fileDateFormat = new SimpleDateFormat("yy-MM-dd-HH:mm:ss.SSS");
@@ -58,13 +58,13 @@ public class FileProcessingService {
 		sortIntoSeparateMapsByFirstLetter(wordsFrequency, wordFrequenciesFromAtoG, wordFrequenciesFromHtoN,
 				wordFrequenciesFromOtoU, wordFrequenciesFromVtoZ);
 
-		String aToGResultFilename = storageService.saveListIntoTempFile(
+		String aToGResultFilename = temporaryDirectoryService.saveListIntoTempFile(
 				convertMapToList(wordFrequenciesFromAtoG), createDatedFileName("-a-g.txt"));
-		String hToNResultFilename = storageService.saveListIntoTempFile(
+		String hToNResultFilename = temporaryDirectoryService.saveListIntoTempFile(
 				convertMapToList(wordFrequenciesFromHtoN), createDatedFileName("-h-n.txt"));
-		String oToUResultFilename = storageService.saveListIntoTempFile(
+		String oToUResultFilename = temporaryDirectoryService.saveListIntoTempFile(
 				convertMapToList(wordFrequenciesFromOtoU), createDatedFileName("-o-u.txt"));
-		String vToZResultFilename = storageService.saveListIntoTempFile(
+		String vToZResultFilename = temporaryDirectoryService.saveListIntoTempFile(
 				convertMapToList(wordFrequenciesFromVtoZ), createDatedFileName("-v-z.txt"));
 
 		return new FileProcessingResultResponse(

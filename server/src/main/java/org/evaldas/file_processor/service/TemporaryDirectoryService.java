@@ -7,10 +7,14 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
+import static java.util.Collections.emptyList;
+import static java.util.Objects.nonNull;
+
 @Service
-public class StorageService {
+public class TemporaryDirectoryService {
 
 	@Value("${tempDirName}")
 	private String tempDirName;
@@ -37,5 +41,38 @@ public class StorageService {
 		}
 
 		return filename; // Returning filename, because I don't want to expose server location where it's stored
+	}
+
+	public List<File> loadAllFromTempDirectory() {
+		String path = System.getProperty("java.io.tmpdir") + "/" + tempDirName;
+		File tempDirectory = new File(path);
+
+		if (tempDirectory.isDirectory()) {
+			File[] files = tempDirectory.listFiles();
+			return nonNull(files) ? Arrays.asList(files) : emptyList();
+		} else {
+			return emptyList();
+		}
+	}
+
+	public void deleteTempDirectory() {
+		String path = System.getProperty("java.io.tmpdir") + "/" + tempDirName;
+		File dirToDelete = new File(path);
+
+		if (dirToDelete.isDirectory() && deleteDirectory(dirToDelete)) {
+			System.out.println("Directory " + tempDirName + " was deleted");
+		} else {
+			System.out.println("Directory " + tempDirName + " was NOT deleted");
+		}
+	}
+
+	boolean deleteDirectory(File directoryToBeDeleted) {
+		File[] allContents = directoryToBeDeleted.listFiles();
+		if (nonNull(allContents)) {
+			for (File file : allContents) {
+				deleteDirectory(file);
+			}
+		}
+		return directoryToBeDeleted.delete();
 	}
 }
