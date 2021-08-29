@@ -6,7 +6,7 @@ http://localhost:8080/swagger.html
 
 ## Instructions to run the app
 1. Clone the repo
-2. Navigate to `client` directory and run `npm install`
+2. Navigate to client directory and run `npm install`
 3. After install is done, run `npm start` to launch the web app
 4. Open server directory as a project in your favorite IDE
 5. Run `FileProcessorApplication` main class to launch the back end
