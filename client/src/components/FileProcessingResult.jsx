@@ -1,7 +1,6 @@
 import _ from 'lodash';
 
 function FileProcessingResult({ isFetching, aToG, hToN, oToU, vToZ }) {
-	console.log('====',isFetching, aToG, hToN, oToU, vToZ);
 	if(isFetching) {
 		return (
 			<div
