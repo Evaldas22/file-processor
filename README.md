@@ -10,3 +10,5 @@ http://localhost:8080/swagger.html
 3. After install is done, run `npm start` to launch the web app
 4. Open server directory as a project in your favorite IDE
 5. Run `FileProcessorApplication` main class to launch the back end
+
+Be aware that the result files will be saved in your operating systems temporary directory.
