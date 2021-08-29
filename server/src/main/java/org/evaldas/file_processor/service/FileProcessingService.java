@@ -28,6 +28,7 @@ public class FileProcessingService {
 
 		long start = System.currentTimeMillis();
 
+		// TODO: improve with executor service
 		files.forEach(file -> {
 			Thread t = new Thread(new FileProcessingRunnable(file, wordsFrequency));
 			t.start();
