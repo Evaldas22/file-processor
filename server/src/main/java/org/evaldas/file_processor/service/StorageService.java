@@ -14,7 +14,7 @@ public class StorageService {
 	@Value("${tempDirName}")
 	private String tempDirName;
 
-	public String saveListIntoFile(List<String> content, String filename) {
+	public String saveListIntoTempFile(List<String> content, String filename) {
 		String path = System.getProperty("java.io.tmpdir") + "/" + tempDirName + "/" + filename;
 
 		try (BufferedWriter writer = new BufferedWriter(new FileWriter(path))) {
