@@ -13,11 +13,16 @@ function FileProcessingResult({ isFetching, aToG, hToN, oToU, vToZ }) {
 		)
 	}
 	
+	const BACK_END_URL = "http://localhost:8080" // this should be a env variable
+
 	return (
 		<div className="container">
 			<div className="row">
 				<div className="wordColumn col">
-					Words from A to G<br/>
+					Words from A to G 
+					{!_.isEmpty(aToG) &&
+						<a href={BACK_END_URL+"/download?filename=" + aToG.filename} download><i class="fa fa-download"></i></a>
+					}<br/>
 					{
 						!_.isEmpty(aToG) ?
 							<ul>
@@ -26,7 +31,10 @@ function FileProcessingResult({ isFetching, aToG, hToN, oToU, vToZ }) {
 					}
 				</div>
 				<div className="wordColumn col">
-					Words from H to T<br/>
+					Words from H to T
+					{!_.isEmpty(hToN) &&
+						<a href={BACK_END_URL+"/download?filename=" + hToN.filename} download><i class="fa fa-download"></i></a>
+					}<br/>
 					{
 						!_.isEmpty(hToN) ?
 							<ul>
@@ -35,7 +43,10 @@ function FileProcessingResult({ isFetching, aToG, hToN, oToU, vToZ }) {
 					}
 				</div>
 				<div className="wordColumn col">
-					Words from O to U<br/>
+					Words from O to U
+					{!_.isEmpty(oToU) &&
+						<a href={BACK_END_URL+"/download?filename=" + oToU.filename} download><i class="fa fa-download"></i></a>
+					}<br/>
 					{
 						!_.isEmpty(oToU) ?
 							<ul>
@@ -44,7 +55,10 @@ function FileProcessingResult({ isFetching, aToG, hToN, oToU, vToZ }) {
 					}
 				</div>
 				<div className="wordColumn col"	>
-					Words from V to Z<br/>
+					Words from V to Z
+					{!_.isEmpty(vToZ) &&
+						<a href={BACK_END_URL+"/download?filename=" + vToZ.filename} download><i class="fa fa-download"></i></a>
+					}<br/>
 					{
 						!_.isEmpty(vToZ) ?
 							<ul>

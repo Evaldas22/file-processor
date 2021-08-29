@@ -17,7 +17,7 @@ function FileUpload({ files, selectFiles, processFiles, isFetching }) {
 				/>
 				<button
 					type='submit'
-					className='btn btn-info'
+					className='btn btn-success'
 					disabled={!areFilesAdded() || isFetching}
 				>
 					Process Files
