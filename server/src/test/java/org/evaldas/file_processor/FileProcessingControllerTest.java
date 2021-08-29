@@ -32,12 +32,12 @@ public class FileProcessingControllerTest {
 	private TemporaryDirectoryService temporaryDirectoryService;
 
 	@AfterEach
-	public void cleanUp(){
+	public void cleanUp() {
 		temporaryDirectoryService.deleteTempDirectory();
 	}
 
 	@Test
-	public void processFile_shouldSuccessfullyParseAndSendResponse_WhenTwoFilesUploaded() throws Exception {
+	public void processFile_shouldSuccessfullyParseAndSendResponse_whenTwoFilesUploaded() throws Exception {
 		MockMultipartFile file1 = new MockMultipartFile("files", "test1.txt", "text/plain", "This is some \"sample\" text, ok?".getBytes());
 		MockMultipartFile file2 = new MockMultipartFile("files", "test1.txt", "text/plain", "All words are ok, so do not worry!".getBytes());
 
@@ -67,5 +67,22 @@ public class FileProcessingControllerTest {
 				.andExpect(jsonPath("$.wordFrequenciesFromVtoZ.words.worry", equalTo(1)));
 
 		assertEquals(4, temporaryDirectoryService.loadAllFromTempDirectory().size());
+	}
+
+	@Test
+	public void processFile_shouldReturnBadRequest_whenNoFileUploaded() throws Exception {
+		mvc.perform(multipart("/process-files"))
+				.andExpect(status().isBadRequest());
+	}
+
+	@Test
+	public void processFile_shouldReturnBadRequest_whenEmptyFilesUploaded() throws Exception {
+		MockMultipartFile file1 = new MockMultipartFile("files", "test1.txt", "text/plain", "".getBytes());
+		MockMultipartFile file2 = new MockMultipartFile("files", "test1.txt", "text/plain", "".getBytes());
+
+		mvc.perform(multipart("/process-files")
+				.file(file1)
+				.file(file2))
+				.andExpect(status().isBadRequest());
 	}
 }
