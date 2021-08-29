@@ -3,7 +3,7 @@ package org.evaldas.file_processor.controller.response;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.util.Map;
+import java.util.List;
 
 @Getter
 @AllArgsConstructor
@@ -17,6 +17,6 @@ public class FileProcessingResultResponse {
 	@AllArgsConstructor
 	public static class FileResponse {
 		private final String filename;
-		private final Map<String, Integer> words;
+		private final List<String> words;
 	}
 }
