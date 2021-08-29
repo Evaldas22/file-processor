@@ -12,3 +12,5 @@ http://localhost:8080/swagger.html
 5. Run `FileProcessorApplication` main class to launch the back end
 
 Be aware that the result files will be saved in your operating systems temporary directory.
+
+Also while testing on Windows 10 I got firewall prompt, so don't be surpised ![image](https://user-images.githubusercontent.com/16511316/131259635-941c0842-f086-4eda-bf6f-344c824a6a5b.png)
