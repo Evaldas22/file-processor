@@ -23,7 +23,7 @@ public class TemporaryDirectoryService {
 		String path = System.getProperty("java.io.tmpdir") + "/" + tempDirName + "/" + filename;
 		File file = new File(path);
 		if (file.getParentFile().mkdirs()) { // create temporary directory with tempDirName if it doesn't exist
-			System.out.println("Created " + tempDirName + " directorys");
+			System.out.println("Created " + tempDirName + " directory");
 		}
 
 		try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
