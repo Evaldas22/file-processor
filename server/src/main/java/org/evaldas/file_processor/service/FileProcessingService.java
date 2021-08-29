@@ -21,7 +21,7 @@ public class FileProcessingService {
 	private final TemporaryDirectoryService temporaryDirectoryService;
 	private final MapSortingUtility mapSortingUtility;
 
-	private final SimpleDateFormat fileDateFormat = new SimpleDateFormat("yy-MM-dd-HH:mm:ss.SSS");
+	private final SimpleDateFormat fileDateFormat = new SimpleDateFormat("yy-MM-dd-HH-mm-ss.SSS");
 
 	@SneakyThrows
 	public FileProcessingResultResponse process(List<MultipartFile> files) {
