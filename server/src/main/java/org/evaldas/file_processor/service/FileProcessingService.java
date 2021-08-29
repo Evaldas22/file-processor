@@ -23,6 +23,8 @@ public class FileProcessingService {
 	private final SimpleDateFormat fileDateFormat = new SimpleDateFormat("yy-MM-dd-HH:mm:ss.SSS");
 
 	public FileProcessingResultResponse process(List<MultipartFile> files) {
+		validateRequest(files);
+
 		Map<String, Integer> wordsFrequency = new ConcurrentHashMap<>();
 		List<Thread> threads = new ArrayList<>();
 
@@ -46,7 +48,19 @@ public class FileProcessingService {
 		long finish = System.currentTimeMillis();
 		System.out.println("File parsing took " + (finish - start) + " ms");
 
+		if (wordsFrequency.isEmpty()) {
+			throw new IllegalArgumentException("Empty files attached");
+		}
+
 		return buildResponseAndSaveResults(mapSortingUtility.sortMapByWordLengthAndAlphabetically(wordsFrequency));
+	}
+
+	private void validateRequest(List<MultipartFile> files) throws IllegalArgumentException{
+		// noticed that when no file attached - files list will contain one file with empty name
+		if (Objects.isNull(files) || files.isEmpty() ||
+				(files.size() == 1 && files.get(0).getOriginalFilename().equals(""))) {
+			throw new IllegalArgumentException("No files attached");
+		}
 	}
 
 	private FileProcessingResultResponse buildResponseAndSaveResults(Map<String, Integer> wordsFrequency) {
