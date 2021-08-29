@@ -11,7 +11,7 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -46,25 +46,21 @@ public class FileProcessingControllerTest {
 				.file(file2))
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.wordFrequenciesFromAtoG.filename", Matchers.endsWith("-a-g.txt")))
-				.andExpect(jsonPath("$.wordFrequenciesFromAtoG.words.all", equalTo(1)))
-				.andExpect(jsonPath("$.wordFrequenciesFromAtoG.words.are", equalTo(1)))
-				.andExpect(jsonPath("$.wordFrequenciesFromAtoG.words.do", equalTo(1)))
+				.andExpect(jsonPath("$.wordFrequenciesFromAtoG.words", hasSize(3)))
+				.andExpect(jsonPath("$.wordFrequenciesFromAtoG.words", hasItems("all - 1", "are - 1", "do - 1")))
 
 				.andExpect(jsonPath("$.wordFrequenciesFromHtoN.filename", Matchers.endsWith("-h-n.txt")))
-				.andExpect(jsonPath("$.wordFrequenciesFromHtoN.words.is", equalTo(1)))
-				.andExpect(jsonPath("$.wordFrequenciesFromHtoN.words.not", equalTo(1)))
+				.andExpect(jsonPath("$.wordFrequenciesFromHtoN.words", hasSize(2)))
+				.andExpect(jsonPath("$.wordFrequenciesFromHtoN.words", hasItems("is - 1", "not - 1")))
 
 				.andExpect(jsonPath("$.wordFrequenciesFromOtoU.filename", Matchers.endsWith("-o-u.txt")))
-				.andExpect(jsonPath("$.wordFrequenciesFromOtoU.words.ok", equalTo(2)))
-				.andExpect(jsonPath("$.wordFrequenciesFromOtoU.words.sample", equalTo(1)))
-				.andExpect(jsonPath("$.wordFrequenciesFromOtoU.words.so", equalTo(1)))
-				.andExpect(jsonPath("$.wordFrequenciesFromOtoU.words.some", equalTo(1)))
-				.andExpect(jsonPath("$.wordFrequenciesFromOtoU.words.text", equalTo(1)))
-				.andExpect(jsonPath("$.wordFrequenciesFromOtoU.words.this", equalTo(1)))
+				.andExpect(jsonPath("$.wordFrequenciesFromOtoU.words", hasSize(6)))
+				.andExpect(jsonPath("$.wordFrequenciesFromOtoU.words", hasItems("ok - 2", "sample - 1", "so - 1",
+						"some - 1", "text - 1", "this - 1")))
 
 				.andExpect(jsonPath("$.wordFrequenciesFromVtoZ.filename", Matchers.endsWith("-v-z.txt")))
-				.andExpect(jsonPath("$.wordFrequenciesFromVtoZ.words.words", equalTo(1)))
-				.andExpect(jsonPath("$.wordFrequenciesFromVtoZ.words.worry", equalTo(1)));
+				.andExpect(jsonPath("$.wordFrequenciesFromVtoZ.words", hasSize(2)))
+				.andExpect(jsonPath("$.wordFrequenciesFromVtoZ.words", hasItems("words - 1", "worry - 1")));
 
 		assertEquals(4, temporaryDirectoryService.loadAllFromTempDirectory().size());
 	}

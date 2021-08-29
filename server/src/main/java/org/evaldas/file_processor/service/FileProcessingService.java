@@ -74,20 +74,25 @@ public class FileProcessingService {
 		sortIntoSeparateMapsByFirstLetter(wordsFrequency, wordFrequenciesFromAtoG, wordFrequenciesFromHtoN,
 				wordFrequenciesFromOtoU, wordFrequenciesFromVtoZ);
 
+		List<String> aToGWords = convertMapToList(wordFrequenciesFromAtoG);
+		List<String> hToNWords = convertMapToList(wordFrequenciesFromHtoN);
+		List<String> oToUGWords = convertMapToList(wordFrequenciesFromOtoU);
+		List<String> vToZWords = convertMapToList(wordFrequenciesFromVtoZ);
+
 		String aToGResultFilename = temporaryDirectoryService.saveListIntoTempFile(
-				convertMapToList(wordFrequenciesFromAtoG), createDatedFileName("-a-g.txt"));
+				aToGWords, createDatedFileName("-a-g.txt"));
 		String hToNResultFilename = temporaryDirectoryService.saveListIntoTempFile(
-				convertMapToList(wordFrequenciesFromHtoN), createDatedFileName("-h-n.txt"));
+				hToNWords, createDatedFileName("-h-n.txt"));
 		String oToUResultFilename = temporaryDirectoryService.saveListIntoTempFile(
-				convertMapToList(wordFrequenciesFromOtoU), createDatedFileName("-o-u.txt"));
+				oToUGWords, createDatedFileName("-o-u.txt"));
 		String vToZResultFilename = temporaryDirectoryService.saveListIntoTempFile(
-				convertMapToList(wordFrequenciesFromVtoZ), createDatedFileName("-v-z.txt"));
+				vToZWords, createDatedFileName("-v-z.txt"));
 
 		return new FileProcessingResultResponse(
-				new FileProcessingResultResponse.FileResponse(aToGResultFilename, wordFrequenciesFromAtoG),
-				new FileProcessingResultResponse.FileResponse(hToNResultFilename, wordFrequenciesFromHtoN),
-				new FileProcessingResultResponse.FileResponse(oToUResultFilename, wordFrequenciesFromOtoU),
-				new FileProcessingResultResponse.FileResponse(vToZResultFilename, wordFrequenciesFromVtoZ)
+				new FileProcessingResultResponse.FileResponse(aToGResultFilename, aToGWords),
+				new FileProcessingResultResponse.FileResponse(hToNResultFilename, hToNWords),
+				new FileProcessingResultResponse.FileResponse(oToUResultFilename, oToUGWords),
+				new FileProcessingResultResponse.FileResponse(vToZResultFilename, vToZWords)
 		);
 	}
 
